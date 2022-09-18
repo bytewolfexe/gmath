@@ -9,6 +9,7 @@ namespace gmath
 	template <typename Type>
 	struct matrix4
 	{
+        // Matrix's data can be accessed in several ways
 		union
 		{
 			Type data[16];
@@ -16,6 +17,9 @@ namespace gmath
 			vector4<Type> vec[4];
 		};
 
+        //////////////////////////////////////////////
+		//			CONSTRUCTORS					//
+		//////////////////////////////////////////////
 		matrix4()
 			: vec {vector4<Type>(),vector4<Type>(),vector4<Type>(),vector4<Type>()}
 		{}
@@ -42,6 +46,10 @@ namespace gmath
 					m41, m42, m43, m44}
 		{}
 
+
+        //////////////////////////////////////////////
+		//			OPERATOR OVERLOADS				//
+		//////////////////////////////////////////////
 		inline matrix4<Type> operator + (const matrix4<Type>& other) const
 		{
 			return matrix4<Type>(
@@ -62,11 +70,33 @@ namespace gmath
 			);
 		}
 
+        matrix4<Type> operator * (const matrix4<Type>& other) const
+        {
+            matrix4<Type> result;
+
+            for(int i = 0; i < 4; i++)
+                for(int j = 0; j < 4; j++)
+                    for(int k = 0; k < 4; k++)
+                        result.mat[i][j] += mat[i][k] * other.mat[k][j];
+
+            return result;
+        }
+
 		inline vector4<Type>& operator [] (uint32_t index)
 		{
 			GMATH_ASSERT(index >= 0 && index < 4, "Out of range index!");
 			return vec[index];
 		}
+
+        matrix4<Type> transposed() const
+        {
+            matrix4<Type> result;
+            for(int i = 0; i < 4; i++)
+                for(int j = 0; j < 4; j++)
+                    result.mat[i][j] = mat[j][i];
+
+            return result;
+        }
 	};
 }
 

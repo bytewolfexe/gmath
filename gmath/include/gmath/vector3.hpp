@@ -11,6 +11,10 @@ namespace gmath
 	{
 		Type x, y, z;
 
+
+        //////////////////////////////////////////////
+        //			CONSTRUCTORS					//
+        //////////////////////////////////////////////
 		vector3()
 			: x((Type)0), y((Type)0), z((Type)0)
 		{}
@@ -31,6 +35,10 @@ namespace gmath
 			: x(x), y(y), z(z)
 		{}
 
+
+        //////////////////////////////////////////////
+        //			OPERATORS OVERLOADING			//
+        //////////////////////////////////////////////
 		inline vector3<Type> operator + (const vector3<Type>& other) const
 		{
 			return vector3<Type>(x + other.x, y + other.y, z + other.z);
@@ -103,36 +111,46 @@ namespace gmath
 			return (((Type*)this)[index]);
 		}
 
+        //////////////////////////////////////////////
+		//			OTHER FUNCTIONS					//
+		//////////////////////////////////////////////
+        // Returns pointer to vector's data
 		Type* data() const
 		{
 			return (Type*)this;
 		}
 
+        // Returns vector's length
 		inline GMATH_LENGTH length() const
 		{
 			return sqrt(x * x + y * y + z * z);
 		}
 
+        // Returns normalized (unit) vector
 		inline vector3<Type> normalized() const
 		{
 			return vector3<Type>(x / length(), y / length(), z / length());
 		}
 
+        // Returns normalized (unit) vector of vector 'vec'
 		static inline vector3<Type> normalize(const vector3<Type>& vec)
 		{
 			return vec.normalized();
 		}
 
+        // Returns dot product of calling vector and 'other' vector
 		inline Type dot(const vector3<Type>& other)
 		{
 			return x * other.x + y * other.y + z * other.z;
 		}
 
+        // Returns dot product of vector 'a' and 'b'
 		static inline Type dot(const vector3<Type>& a, const vector3<Type>& b)
 		{
 			return a.dot(b);
 		}
 
+        // Returns cross product of calling vector and 'other' vector
 		inline vector3<Type> cross(const vector3<Type>& other)
 		{
 			return vector3<Type>(
@@ -142,16 +160,19 @@ namespace gmath
 					);
 		}
 
+        // Returns cross product of vector 'a' and 'b'
 		static inline vector3<Type> cross(const vector3<Type>& a, const vector3<Type>& b)
 		{
 			return a.cross(b);
 		}
 
+        // Returns angle between vectors 'a' and 'b' in radians
 		static inline GMATH_ANGLE angleBetween(const vector3<Type>& a, const vector3<Type>& b)
 		{
 			return acos((GMATH_ANGLE)dot(a, b) / (a.length() * b.length()));
 		}
 
+        // Output to outstream
 		inline friend std::ostream& operator << (std::ostream& out, const vector3<Type>& vec)
 		{
 			out << "[" << vec.x << ":" << vec.y << ":" << vec.z << "]";

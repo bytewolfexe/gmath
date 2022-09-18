@@ -9,6 +9,9 @@ namespace gmath
 	{
 		Type x, y, z, w;
 
+        //////////////////////////////////////////////
+		//			CONSTRUCTORS					//
+		//////////////////////////////////////////////
 		vector4()
 			: x((Type)0), y((Type)0), z((Type)0), w((Type)0)
 		{}
@@ -41,6 +44,10 @@ namespace gmath
 			: x(x), y(yzw.x), z(yzw.y), w(yzw.z)
 		{}
 
+
+        //////////////////////////////////////////////
+		//			OPERATOR OVERLOADS				//
+		//////////////////////////////////////////////
 		inline vector4<Type> operator + (const vector4<Type>& other) const
 		{
 			return vector4<Type>(x + other.x, y + other.y, z + other.z, w + other.w);
@@ -107,11 +114,6 @@ namespace gmath
 			return ((Type*)this)[index];
 		}
 
-		Type* data() const
-		{
-			return (Type*)this;
-		}
-
 		inline bool operator == (const vector4<Type>& other) const
 		{
 			return (x == other.x && y == other.y && z == other.z && w == other.w);
@@ -122,16 +124,28 @@ namespace gmath
 			return (x != other.x || y != other.y || z != other.z || w != other.w);
 		}
 
+        //////////////////////////////////////////////
+		//			OTHER FUNCTIONS					//
+		//////////////////////////////////////////////
+        // Returns pointer to vector's data
+		Type* data() const
+		{
+			return (Type*)this;
+		}
+
+        // Returns vector's length
 		inline GMATH_LENGTH length() const
 		{
 			return (GMATH_LENGTH)sqrt(x * x + y * y + z * z + w * w);
 		}
 
+        // Returns normalized (unit) vector of calling vector
 		inline vector4<Type> normalized() const
 		{
 			return vector4(x / length(), y / length(), z / length(), w / length());
 		}
 
+        // Returns normalized (unit) vector of vector 'vec'
 		static inline vector4<Type> normalize(const vector4<Type>& vec)
 		{
 			return vec.normalized();

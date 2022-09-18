@@ -4,13 +4,28 @@
 
 int main()
 {
-	gmath::vector2<float> vec(7.2f, 5.0f);
-	std::cout << vec[0] << "\n";
-	vec += {4.2f, 1.9f};
-	std::cout << vec << std::endl;
+	gmath::matrix4<int> a(
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12},
+    {13, 14, 15, 16});
 
-	std::cout << "Angle between two angles in degrees : " << gmath::toDegrees(
-			gmath::vector2<float>::angleBetween({1.0f, 0.0f}, {1.0f})) << "\n";
+    gmath::matrix4<int> b(
+    {21, 22, 23, 24},
+    {25, 26, 27, 28},
+    {29, 30, 31, 32},
+    {33, 34, 35, 36});
 
+    gmath::matrix4<int> c = a * b;
+
+    std::cout << "result of multiplication\n";
+    for(int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            std::cout << c[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
 	return 0;
 }
